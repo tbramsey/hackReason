@@ -51,8 +51,6 @@ professor_rating(dr_brown, 1).
 professor_rating(dr_brown, 1).
 
 % CS Degree Requirements
-%requiredCourse(Class) :-
-    %requiredCourseOption(Class, _).
 requiredCourse(cs4485).
 requiredCourse(cs4384).
 requiredCourse(cs4349).
@@ -93,8 +91,6 @@ requiredCourse(core2).
 requiredCourse(core1).
 requiredCourse(math2413).
 requiredCourse(math2414).
-% requiredCourseOption(math2413, math2417).
-% requiredCourseOption(math2414, math2419).
 
 
 % Prerequisites for courses
@@ -281,7 +277,7 @@ met_prereq(Class) :-
 
 all_taken([]).
 all_taken([Prereq|Rest]) :-
-    (hasTaken(Prereq); hasTakenTemp(Prereq)),  % Prerequisite must be taken
+    (hasTaken(Prereq); hasTakenTemp(Prereq)),
     all_taken(Rest).
 
 allClasses(Classes) :-
@@ -315,7 +311,7 @@ nextSemester(Classes) :-
     select_classes(AllClassesNoDuplicates, 5, Classes).
 
 select_classes(_, 0, []) :- !.
-select_classes([], _, []) :- !.  % Base case for when there are no more classes to select.
+select_classes([], _, []) :- !.
 select_classes(AllClasses, N, [Class | Rest]) :-
     N > 0,
     select(Class, AllClasses, RemainingClasses),
@@ -347,7 +343,7 @@ format_classes([class(Class, Professor, ClassNumber) | Rest]) :-
     format_classes(Rest).
 
 % Match classes in the plan to their professors
-pick_professor([], []).  % Base case: empty plan
+pick_professor([], []). 
 pick_professor([Semester | Rest], [SemesterWithProfessors | RestWithProfessors]) :-
     pick_professor_for_semester(Semester, SemesterWithProfessors),
     pick_professor(Rest, RestWithProfessors).
